@@ -176,7 +176,7 @@ class AccountsController < ApplicationController
   
   def search    
     @account = Account.new
-    @account.url = "http://moonkey.jp"
+    @account.url = params[:url]
     begin
       doc = timeout(10){Hpricot(open(@account.url).read)}
     rescue URI::InvalidURIError
