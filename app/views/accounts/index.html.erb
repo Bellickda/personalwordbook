@@ -1,0 +1,11 @@
+<% @accounts.each do |account| %>
+<table class="table table-bordered table-condensed">
+	<td>
+		<dl>
+			<dt><%= link_to account.title, account.url, :style => "font-size: 30px" %>　　<%= account.created_at.strftime("%Y-%m-%d %H:%M")%></dt>
+			<dd><%= account.content%></dd>
+		</dl>
+		<div style="text-align: right"><%= link_to account.url, account.url%></div>
+	</td>
+</table>
+<% end %>

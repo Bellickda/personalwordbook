@@ -1,0 +1,40 @@
+<center>
+
+<table class="table table-bordered table-condensed table-hover">
+	<tr style="background-color: #EEEEEE">
+		<th style="">Word（単語）</th>
+		<th style="">Details（詳細）</th>
+		<th></th>
+	</tr>
+<% @accounts.each do |account| %>
+  <% if account.priority == 0 %>
+  <tr style="background-color: #ffffff">
+  <% elsif account.priority == 1%>
+  <tr style="background-color: 	#ffffff">
+  <% else%>
+  <tr style="background-color: #ffffff">
+  <% end %>
+    <% if account.priority == 0 %>
+    <td style="background-color: #ffeeff">
+    <% elsif account.priority == 1%>
+    <td style="background-color: 	#eeffff">
+    <% else%>
+    <td style="background-color: #ffffff">
+    <% end %>
+    	<div style="font: bold;">
+    		<%= account.title %>
+    	</div>
+    </td>
+    <td>
+    	<div style="">
+    	<%= account.content%>
+    	</div>
+    </td>
+    <td style="">
+        <%= link_to '編集', edit_account_path(account.id), :class => 'btn btn-small' %>
+        <%= link_to '削除', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small' %>
+    </td>
+  </tr>
+<% end %>
+</table>
+</center>

@@ -1,0 +1,46 @@
+<div style="margin-left: 120px">
+<h1 style="text-shadow:1px 1px 0 white,2px 2px 0 black;font-weight:bold;font-size: 60px">Personal　Dictionary</h1><br>
+<span style="margin-left: 150px">どこでも書ける。どこでも見れる。自分だけの単語帳が作れるサービス。</span>
+</div>
+<div style="margin-left: 210px;margin-top: 20px">
+	
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <% if @user.errors.any? %>
+   <ul>
+     <% @user.errors.full_messages.each do |msg| %>
+     <li><%= msg %></li>
+     <% end %>
+   </ul>
+ <% end %>
+  
+  <div style="float: left">
+  <div><%= f.label :email %>
+  <%= f.email_field :email %></div>
+
+  <div><%= f.label :password %>
+  <%= f.password_field :password %></div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div style="float: left;padding-right: 10px"><%= f.check_box :remember_me %> </div><%= f.label :remember_me %>
+  <% end -%>
+  
+<div style="clear: both;margin-top: 10px;margin-left: 60px">
+  <div><%= f.submit "ログイン", {:class => "btn btn-primary btn-large"} %></div>
+<% end %>
+</div>
+</div>
+  <div style="margin-left: 250px;padding-top: 20px;font-size: 10px">
+  <%= link_to image_tag('twitter_login.png'),"/auth/twitter" %><br><br>
+  <%= link_to image_tag('face_login.png'), "/auth/facebook"%><br />
+  Twitter,Facebookで登録しても通知される事はありません。
+  
+  
+  </div>
+  
+<div style="clear: both;margin-top: 120px">
+<%= render "devise/shared/links" %>
+</div>
+
+
+
+</div>

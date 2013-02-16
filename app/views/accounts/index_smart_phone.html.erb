@@ -1,0 +1,32 @@
+<center>
+
+			<table class="table table-condensed table-bordered">
+				<%= form_tag :search_accounts, method: :get, :remote => true do %>
+				<tr>
+					<th style="text-align: center;background-color: #EEEEEE">カテゴリー</th>
+				</tr>
+				<tr>
+					<td style="text-align: center"><%= select_tag("category", options_for_select(@test))%></td>
+				</tr>
+				<tr>
+					<th style="text-align: center;background-color: #EEEEEE">重要度</th>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						全て<%= radio_button_tag 'priority',3, :checked => "checked"%>
+						重要<%= radio_button_tag 'priority',0%>
+						普通<%= radio_button_tag 'priority', 1%>
+						低い<%= radio_button_tag 'priority', 2%>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;"><%= submit_tag "表示", :class => "btn btn-small btn-info" %></td>
+				</tr>
+				<% end %>
+			</table>
+
+
+<div id="select">
+	<%= render "index_show" %>
+</div>
+</center>

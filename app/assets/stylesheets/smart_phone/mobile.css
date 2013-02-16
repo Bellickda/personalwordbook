@@ -1,0 +1,60 @@
+/**
+ * GridSystem for Mobile Display
+ */
+@media only screen and (max-width: 767px) {
+
+    /* 画面両サイドの余白調整 */
+    body {
+        width: 100%;
+        padding:0;
+    }
+
+    .container-fluid{
+        padding-left:0; padding-right: 0;
+    }
+
+    /* GRID  */
+    [class^="row"] > [class*="span"]{
+        float: left;
+        margin-left: 2.564102564%;
+    }
+    [class^="row"] > [class*="span"]:first-child {
+        margin-left: 0;
+    }
+    [class^="row"] > .span12 {
+        width: 100%;
+    }
+    [class^="row"] > .span11 {
+        width: 91.45299145300001%;
+    }
+    [class^="row"] > .span10 {
+        width: 82.905982906%;
+    }
+    [class^="row"] > .span9 {
+        width: 74.358974359%;
+    }
+    [class^="row"] > .span8 {
+        width: 65.81196581200001%;
+    }
+    [class^="row"] > .span7 {
+        width: 57.264957265%;
+    }
+    [class^="row"] > .span6 {
+        width: 48.717948718%;
+    }
+    [class^="row"] > .span5 {
+        width: 40.170940171000005%;
+    }
+    [class^="row"] > .span4 {
+        width: 31.623931624%;
+    }
+    [class^="row"] > .span3 {
+        width: 23.076923077%;
+    }
+    [class^="row"] > .span2 {
+        width: 14.529914530000001%;
+    }
+    [class^="row"] > .span1 {
+        width: 5.982905983%;
+    }
+}

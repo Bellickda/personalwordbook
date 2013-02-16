@@ -1,0 +1,51 @@
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table table-bordered table-condensed">
+  	<tr>
+  		<th><div style="text-align: center;background-color: #EEEEEE"">カテゴリー</div></th>
+  	</tr>
+  	<tr>
+  		<td style="text-align: center;"><%= f.select :category, @other.categoryarray, :style => 'font: bold' %>
+  			<br><%= link_to "カテゴリの追加はこちら", categoryd_path%>
+  		</td>
+  	     
+  	</tr>
+  	<tr>
+  		<th><div style="text-align: center;background-color: #EEEEEE"">単語</div></th>
+  	</tr>
+  	<tr>
+  		<td style="text-align: center;"><%= f.text_field :title, :style => 'font: bold;' %></td>
+  	</tr>
+  	<tr>
+  		<th><div style="text-align: center;background-color: #EEEEEE"">詳細</div></th>
+  	</tr>
+  	<tr>
+  		<td style="text-align: center;"><%= f.text_area :content, :style => 'font: bold;' %></td>
+  	</tr>
+  	
+  	<tr>
+  		<th><div style="text-align: center;background-color: #EEEEEE">重要度</div></th>
+  	</tr>
+  	<tr>
+  		<td style="text-align: center;"><%= f.radio_button :priority, 0, :checked => "checked" %>重要
+  			<%= f.radio_button :priority, 1 %>普通
+  			<%= f.radio_button :priority, 2 %>低い
+  		</td>
+  	</tr>
+  </table>
+    
+  <div class="actions" style="text-align: center;">
+    <%= f.submit "編集完了", :class => "btn btn-info" %>
+  </div>
+<% end %>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="description" content="どこでも書ける。どこでも見れる。自分だけの単語帳が作れるサービス。">
+  <meta name="keywords" content="PersonalDictionary,単語帳,単語">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+  <title>PersonalDictionary</title>
+  <%= stylesheet_link_tag    "application","accounts", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+</head>
+<body>
+	
+	<div id="header">
+		<% if user_signed_in? %>
+		  <%= render "shared/header" %>
+		<% end %>
+	</div>
+	
+	<div class="container" style="margin-top: 80px">
+		<%= yield %>
+		<% if user_signed_in? %>
+		<span style="text-align: center">
+		  <script type="text/javascript"><!--
+google_ad_client = "ca-pub-7700010269860889";
+/* PersonalDictionary */
+google_ad_slot = "6808215945";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</span>
+        <% end %>
+	</div>
+		
+    <div id="footer">
+    	<%= render "shared/footer" %>
+    </div>
+	
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="javascripts/bootstrap.min.js"></script>
+</body>
+</html>
+

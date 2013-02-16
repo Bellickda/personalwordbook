@@ -1,0 +1,32 @@
+<div style="text-align: center">
+<h2 style="">ユーザー情報変更</h2>
+
+<div style="">
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div><%= f.label :email %>
+  <%= f.email_field :email %></div>
+  
+  <div><%= f.label :current_password %> <i>(変更を確定するには、パスワードの入力が必要です)</i><br />
+  <%= f.password_field :current_password %></div>
+
+  <div><%= f.label :password, "変更パスワード" %> <i>(変更しない場合は、空白のままにしてください)</i><br />
+  <%= f.password_field :password, :autocomplete => "off" %></div>
+
+  <div><%= f.label :password_confirmation, "確認用変更パスワード" %>
+  <%= f.password_field :password_confirmation %></div>
+
+  
+
+  <div><%= f.submit "変更", :class => 'btn btn-success' %></div>
+<% end %>
+</div>
+
+<h2 style="">アカウントの削除</h2>
+
+<div style="">
+<p><%= button_to "退会", registration_path(resource_name), :data => { :confirm => "退会するとすべてのアカウント情報が消えます。" }, :method => :delete, :class => 'btn btn-danger' %></p>
+
+</div>
+</div>

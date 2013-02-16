@@ -1,0 +1,46 @@
+
+<div style="margin-left: 280px">
+<div class="row">
+  <div class="span10">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <% if resource.errors.any? -%>
+        <div class="alert-message block-message error">
+          <ul>
+            <% resource.errors.full_messages.each do |msg| -%>
+              <li><%= msg %></li>
+            <% end -%>
+          </ul>
+        </div>
+      <% end -%>
+      <fieldset>
+        <div class="clearfix">
+          <%= f.label :email %>
+          <div class="input">
+            <%= f.email_field :email %>
+          </div>
+        </div>
+        <% if @user.password_required? %>
+          <div class="clearfix">
+            <%= f.label :password %>
+            <div class="input">
+              <%= f.password_field :password %>
+            </div>
+          </div>
+          <div class="clearfix">
+            <%= f.label :password_confirmation %>
+            <div class="input">
+              <%= f.password_field :password_confirmation %>
+            </div>
+          </div>
+        <% end %>
+        <div class="actions">
+          <%= f.submit "登録", :class => "btn btn-primary btn-large", :name => "commit" %>
+        </div>
+      </fieldset>
+    <% end -%>
+  </div>
+  <div class="span6">
+    <%= render :partial => "devise/shared/links" %>
+  </div>
+</div>
+</div>

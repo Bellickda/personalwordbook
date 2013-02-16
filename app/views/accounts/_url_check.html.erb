@@ -1,0 +1,46 @@
+<% category = ["なし","インターネット・コンピュータ","スポーツ","食べ物・飲み物","学問・科学","趣味・ホビー","企業・ビジネス","ゲーム","ニュース","映画","音楽","本","美容・ビューティー","有名人・芸能人","テレビ・ラジオ","動物","写真","旅行・観光","ファッション","恋愛・結婚","家電・AV機器","子育て","乗り物","住まい・インテリア","芸術","健康と医療","経済","政治","宗教","農林漁業","出会い","その他"] %>
+
+<%= form_for(@account) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table table-bordered table-condensed">
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center">URL</div></th>
+  		<td><%= f.text_field :url, :style => 'font-size:16px;font: bold;width:450px' %></td>
+  	</tr>
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center;">カテゴリー</div></th>
+  		<td><%= f.select :category, category, :style => 'font-size:16px;font: bold' %></td>
+  	</tr>
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center">タイトル</div></th>
+  		<td><%= f.text_field :title, :style => 'font-size:16px;font: bold;width:450px' %></td>
+  	</tr>
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center;">詳細</div></th>
+  		<td><%= f.text_area :content, :style => 'font-size:16px;font: bold;width:450px;height:100px' %></td>
+  	</tr>
+  	
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center;">重要度</div></th>
+  		<td><%= f.radio_button :priority, 0, :checked => "checked" %>重要
+  			<%= f.radio_button :priority, 1 %>普通
+  			<%= f.radio_button :priority, 2 %>低い
+  		</td>
+  	</tr>
+  </table>
+    
+  <div class="actions">
+    <%= f.submit "登録", :class => "btn btn-info" %>
+  </div>
+<% end %>

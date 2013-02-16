@@ -1,0 +1,48 @@
+
+<div style="text-align: center;margin-top: 30px">
+	<% if user_signed_in? %>
+	<% else %>
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/all.js#xfbml=1&appId=111432712349343";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-href="http://wordbookmoonkey.herokuapp.com/" data-send="false" data-layout="button_count" data-width="200" data-show-faces="false"></div>
+	      <!--Google+-->　　　　
+     <!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-size="medium"></div>
+
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  window.___gcfg = {lang: 'ja'};
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<meta property="og:title" content="PersonalDictionary" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://wordbookmoonkey.herokuapp.com/" />
+<meta property="og:image" content="" />
+<meta property="og:site_name" content="PersonalDictionary" />
+<meta property="fb:admins" content="100003337073764" />
+     <!--Twitter -->
+	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://wordbookmoonkey.herokuapp.com/" data-via="Bellickda" data-lang="ja">ツイート</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <br><br>
+    <% end %>
+<%= link_to "運営会社", "http://moonkey.jp", :target=>["_blank"] , :style => "color: #505050; background-color: #EEEEEE;"%>
+-
+<%= link_to "PersonalDictionaryについて", explain_path, :style => "color: #505050; background-color: #EEEEEE;"%>
+-
+<%= link_to '利用規約', kiyaku_path, :style => "color: #505050; background-color: #EEEEEE;"%>
+-
+<%= link_to 'プライバシーポリシー', policy_path, :style => "color: #505050; background-color: #EEEEEE;"%>
+<br>
+Copyright (C) 2013 moonkey.All rights reserved.
+</div>
