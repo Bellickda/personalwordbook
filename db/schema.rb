@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130201100127) do
+ActiveRecord::Schema.define(:version => 20130218070334) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
@@ -22,11 +22,20 @@ ActiveRecord::Schema.define(:version => 20130201100127) do
     t.string   "category"
     t.integer  "priority"
     t.string   "url"
+    t.string   "image"
+    t.integer  "groupid"
   end
 
   create_table "androids", :force => true do |t|
     t.integer  "userid"
     t.integer  "random"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.text     "concept"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -44,6 +53,9 @@ ActiveRecord::Schema.define(:version => 20130201100127) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
+    t.integer  "currentgroupid",         :default => 0
+    t.text     "pastgroupid"
+    t.string   "username"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

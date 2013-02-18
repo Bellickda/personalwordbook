@@ -14,13 +14,19 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     #@accounts = Account.where('user_id = ?', current_user.id)
-    @accounts = Account.all
+    user = User.find_by_id(current_user.id)
     
-    
-    
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @accounts }
+    if user.currentgroupid == 0
+      render 'index_no_group'
+    else
+      @accounts = Account.where('groupid = ?', user.currentgroupid)
+      @test = user.currentgroupid
+      @group = Group.all
+      
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @accounts }
+      end
     end
    end
 
@@ -86,9 +92,12 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(params[:account])
     @account.user = User.find_by_id(current_user.id)
+    user = User.find_by_id(current_user.id)
+    @account.groupid = user.currentgroupid
 
     respond_to do |format|
       if @account.save
+        
         #current_user.twitter.update(@account.content) if params[:twitter] == 'yes'
         #if params[:facebook] == 'yes'
         #  current_user.facebook.feed!(:message => "test",
@@ -172,11 +181,10 @@ class AccountsController < ApplicationController
     rescue RuntimeError
     rescue TimeoutError
     end
-    @account.title = doc.search('title').first.innerText.strip
+    @account.title = doc.search('title').first.innerText.strip.toutf8
     description = doc.search('meta[@name=description]').first
-    @account.content = description ? description.get_attribute('content').strip : ""
-    
-    render
+    @account.content = description ? description.get_attribute('content').strip.toutf8 : ""
+  
   end
   
   def search2

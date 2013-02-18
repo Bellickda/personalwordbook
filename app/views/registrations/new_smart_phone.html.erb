@@ -10,6 +10,8 @@
         </div>
       <% end -%>
       <div style="text-align: center">
+      	  <%= f.label :username %>
+            <%= f.text_field :username %>
           <%= f.label :email %>
             <%= f.email_field :email %>
         <% if @user.password_required? %>

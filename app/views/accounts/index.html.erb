@@ -6,6 +6,13 @@
 			<dd><%= account.content%></dd>
 		</dl>
 		<div style="text-align: right"><%= link_to account.url, account.url%></div>
+		a<%= account.groupid%>
 	</td>
 </table>
+<% end %>
+a<%= @test%>
+<% @group.each do |account| %>
+<%= account.id%>
+<%= account.name%>
+<%= account.concept%><br>
 <% end %>

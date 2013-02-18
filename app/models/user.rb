@@ -6,12 +6,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   # attr_accessible :title, :body
   
   has_many :account, dependent: :destroy
-  has_one :other, dependent: :destroy
   has_many :services, :dependent => :destroy
+  
+  #add
+  serialize :pastgroupid
+  validates :username, :presence => true, :uniqueness => true
   
   def apply_omniauth(omniauth)
     case omniauth['provider']

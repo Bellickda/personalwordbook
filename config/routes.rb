@@ -1,4 +1,6 @@
 Personaldiary::Application.routes.draw do
+  resources :groups
+
   get "explain/explain", :as => "explain"
   get "explain/kiyaku", :as => "kiyaku"
   get "explain/policy", :as => "policy"
