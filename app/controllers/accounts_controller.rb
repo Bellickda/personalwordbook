@@ -86,20 +86,6 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(params[:account])
     @account.user = User.find_by_id(current_user.id)
-    
-    begin
-      doc = timeout(10){Hpricot(open(@account.url).read)}
-    rescue URI::InvalidURIError
-    rescue OpenURI::HTTPError
-    rescue SocketError
-    rescue Errno::ENOENT
-    rescue RuntimeError
-    rescue TimeoutError
-    end
-    @account.title = doc.search('title').first.innerText.strip
-    description = doc.search('meta[@name=description]').first
-    @account.content = description ? description.get_attribute('content').strip : ""
-    
 
     respond_to do |format|
       if @account.save
