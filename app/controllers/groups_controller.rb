@@ -1,3 +1,4 @@
+# coding: utf-8
 class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
@@ -13,7 +14,17 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @user = User.find_by_id(current_user.id)
     @group = Group.find(params[:id])
+    
+    @membersize = @group.members.size
+    count = 0
+    @memberarray = [0]
+
+    while count < @membersize
+      @memberarray[count] = User.find_by_id(@group.members[count])
+      count += 1
+    end
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,6 +35,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   # GET /groups/new.json
   def new
+    @user = User.find_by_id(current_user.id)
     @group = Group.new
     
 
@@ -43,6 +55,9 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(params[:group])
     user = User.find_by_id(current_user.id)
+    
+    # グループメンバーを保存
+    @group.members = [current_user.id]
 
     respond_to do |format|
       if @group.save
@@ -83,4 +98,51 @@ class GroupsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def consent
+    @user = User.find_by_id(current_user.id)
+    @group = Group.find_by_id(@user.currentgroupid)
+    # グループ上限に達している場合はホームにリダイレクト
+    if @group.members.size >= 5
+      redirect_to root_path
+    end
+  end
+  
+  def consentsend
+    user = User.find_by_id(current_user.id)
+    group = Group.find_by_id(user.currentgroupid)
+    # グループ上限に達している場合はホームにリダイレクト
+    if group.members.size >= 5
+      redirect_to root_path
+    end
+    otheruser = User.find_by_username(params[:q][0])
+    
+    if otheruser.blank?
+      flash[:notice] = "存在しないIDです。"
+    else
+      if otheruser.consentgroup.blank?
+        otheruser.consentgroup = [user.currentgroupid]
+      else
+        otheruser.consentgroup.unshift(user.currentgroupid)
+      end
+      
+      otheruser.save
+      flash[:notice] = "紹介依頼を出しました。"
+    end
+  
+    redirect_to action: "consent"
+  end
+  
+  def withdrawal
+    user = User.find_by_id(current_user.id)
+    group = Group.find_by_id(user.currentgroupid)
+    
+    group.members.delete(current_user.id)
+    group.save
+    user.currentgroupid = 0
+    user.save
+    
+    redirect_to root_path
+  end
+  
 end

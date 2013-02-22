@@ -14,14 +14,25 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     #@accounts = Account.where('user_id = ?', current_user.id)
-    user = User.find_by_id(current_user.id)
+    @user = User.find_by_id(current_user.id)
     
-    if user.currentgroupid == 0
+    # 紹介依頼がある場合の処理
+    if @user.consentgroup.present?
+      @consentsize = @user.consentgroup.size
+      count = 0
+      @consentarray = [0]
+      # 依頼数分のデータを格納する。
+      while count < @consentsize
+        @consentarray[count] = Group.find_by_id(@user.consentgroup[count])
+        count += 1
+      end
+    end
+    
+    if @user.currentgroupid == 0
       render 'index_no_group'
     else
-      @accounts = Account.where('groupid = ?', user.currentgroupid)
-      @test = user.currentgroupid
-      @group = Group.all
+      @accounts = Account.where('groupid = ?', @user.currentgroupid)
+      @group = Group.find_by_id(@user.currentgroupid)
       
       respond_to do |format|
         format.html # index.html.erb
@@ -70,7 +81,10 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # GET /accounts/new.json
   def new
+    @user = User.find_by_id(current_user.id)
+    @group = Group.find_by_id(@user.currentgroupid)
     @account = Account.new
+    
    
 
     respond_to do |format|
@@ -81,6 +95,8 @@ class AccountsController < ApplicationController
 
   # GET /accounts/1/edit
   def edit
+    @user = User.find_by_id(current_user.id)
+    @group = Group.find_by_id(@user.currentgroupid)
     @account = Account.find(params[:id])
     if @account.user_id != current_user.id
       raise Forbidden
@@ -97,6 +113,11 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
+        comment = Comment.new
+        comment.accounts_id = @account.id
+        comment.comment = @account.tmp
+        comment.name = user.username
+        comment.save
         
         #current_user.twitter.update(@account.content) if params[:twitter] == 'yes'
         #if params[:facebook] == 'yes'
@@ -153,6 +174,31 @@ class AccountsController < ApplicationController
     end
   end
   
+  def consentaccept
+    
+    user = User.find_by_id(current_user.id)
+    group = Group.find_by_id(user.consentgroup[params[:id].to_i])
+    if group.members.size >= 5
+      redirect_to root_path
+    end
+    
+    user.currentgroupid = user.consentgroup[params[:id].to_i]
+    user.consentgroup.delete_at(params[:id].to_i)
+    user.save
+    
+    group.members.unshift(current_user.id)
+    group.save
+    
+    redirect_to accounts_path
+  end
+  
+  def consentdestroy
+    user = User.find_by_id(current_user.id)
+    user.consentgroup.delete_at(params[:id].to_i)
+    user.save
+    redirect_to accounts_path
+  end
+  
   
   #def twitter
   #  @account = Account.find(params[:id])
@@ -205,6 +251,17 @@ class AccountsController < ApplicationController
      @accounts = Account.where('user_id = ? AND title like ? OR content like ?', current_user.id, "%"+params[:q]+"%", "%"+params[:q]+"%")
     
     render
+  end
+  
+  def newcomment
+    account = Account.find_by_id(params[:id])
+    user = User.find_by_id(current_user.id)
+    comment = Comment.new
+    comment.accounts_id = account.id
+    comment.comment = params[:q][0]
+    comment.name = user.username
+    comment.save
+    redirect_to root_path
   end
 
   private

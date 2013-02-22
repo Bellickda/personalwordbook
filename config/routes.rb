@@ -1,15 +1,15 @@
 Personaldiary::Application.routes.draw do
-  resources :groups
+  resources :groups do
+    collection do
+      get "groups/consent" => "groups#consent", :as => "groups_consent"
+      get "groups/consentsend" => "groups#consentsend", :as => "consentsend"
+      get "groups/withdrawal" => "groups#withdrawal", :as => "withdrawal"
+    end
+  end
 
   get "explain/explain", :as => "explain"
   get "explain/kiyaku", :as => "kiyaku"
   get "explain/policy", :as => "policy"
-
-  put "others/category", :as => "category"
-  get "others/default", :as => "default"
-  get "others/set", :as => "set"
-  get "others/categoryd", :as => "categoryd"
-  get "others/destroy", :as => "destroy"
   
   devise_for :users, :controllers => { :sessions => "users/sessions",
                                        :registrations => "users/registrations",
@@ -23,9 +23,9 @@ Personaldiary::Application.routes.draw do
       get "request/show/:id" => "request#show", :as => "request_show"
       get :search
       get :search2
-      post "androidupdate/:id" => "accounts#androidupdate", :as => "androidupdate"
-      post "androiddiarycreate/:id" => "accounts#androiddiarycreate", :as => "androiddiarycreate"
-      post "androiddiaryupdate/:id/:diaryid" => "accounts#androiddiaryupdate", :as => "androiddiaryupdate"
+      get "accounts/consentaccept/:id" => "accounts#consentaccept", :as => "consentaccept"
+      get "accounts/consentdestroy/:id" => "accounts#consentdestroy", :as => "consentdestroy"
+      get "accounts/newcomment/:id" => "accounts#newcomment", :as => "comments"
     end
   end
   

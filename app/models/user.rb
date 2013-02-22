@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   
   #add
   serialize :pastgroupid
+  serialize :consentgroup
   validates :username, :presence => true, :uniqueness => true
   
   def apply_omniauth(omniauth)

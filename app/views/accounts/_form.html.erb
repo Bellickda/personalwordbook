@@ -38,9 +38,14 @@
   			<%= f.radio_button :priority, 2 %>低い
   		</td>
   	</tr>
+  	<tr>
+  		<th><div style="font-size: 16px;text-align: center;">コメント</div></th>
+  		<td><%= f.text_field :tmp %></td>
+  	</tr>
   </table>
     
   <div class="actions">
     <%= f.submit "登録", :class => "btn btn-info" %>
   </div>
 <% end %>
+<%= @test%>

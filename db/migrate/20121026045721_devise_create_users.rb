@@ -9,6 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.integer :currentgroupid, :default => 0
       t.text :pastgroupid
       t.string :username
+      t.text :consentgroup
 
       ## Recoverable
       t.string   :reset_password_token

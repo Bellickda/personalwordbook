@@ -1,15 +1,29 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @group.name %>
-</p>
-
-<p>
-  <b>Concept:</b>
-  <%= @group.concept %>
-</p>
-
-
-<%= link_to 'Edit', edit_group_path(@group) %> |
-<%= link_to 'Back', groups_path %>
+<table class="table table-bordered" style="font-size: 30px">
+	<tr>
+		<th>グループ名</th>
+		<td style="font-size: 30px"><%= @group.name %></td>
+	</tr>
+	<tr>
+		<th>コンセプト</th>
+		<td style="font-size: 30px"><%= @group.concept %></td>
+	</tr>
+	<tr>
+		<th>グループメンバー</th>
+		<td><% count = 0 %>
+			<% while count < @membersize%>
+              <%= @memberarray[count].username%>　
+              <% count += 1%>
+            <% end%>
+        </td>
+	</tr>
+</table>
+			<% if @membersize >= 5%>
+			  <p>メンバーが上限に達しているため紹介できません。</p>
+			  <%= button_to '紹介', groups_consent_groups_path, :method => :get, :disabled => true, :class => "btn" %>
+			<% else %>
+			  <%= button_to '紹介', groups_consent_groups_path, :method => :get, :class => "btn" %>
+			<% end %>
+			<%= link_to 'Edit', edit_group_path(@group), :class => "btn" %><br />
+			<%= link_to 'グループ退会', withdrawal_groups_path, :class=>"btn"%>

@@ -1,0 +1,7 @@
+
+<h1><%= @group.name%>に紹介する</h1>
+<%= form_tag(consentsend_groups_path, method: :get) do %>
+		紹介者のIDを入力<%= text_field "q", params[:q] %>
+		<%= submit_tag "紹介", :class => "btn btn-info"%>
+<% end %>
+<%= flash[:notice] %><br />

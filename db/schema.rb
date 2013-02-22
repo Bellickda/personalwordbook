@@ -11,19 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218070334) do
+ActiveRecord::Schema.define(:version => 20130221091754) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "user_id"
     t.string   "title"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "category"
-    t.integer  "priority"
+    t.integer  "priority",   :default => 0
     t.string   "url"
     t.string   "image"
     t.integer  "groupid"
+    t.string   "tmp"
   end
 
   create_table "androids", :force => true do |t|
@@ -33,9 +34,18 @@ ActiveRecord::Schema.define(:version => 20130218070334) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "comments", :force => true do |t|
+    t.integer  "accounts_id"
+    t.string   "comment"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "groups", :force => true do |t|
     t.string   "name"
     t.text     "concept"
+    t.text     "members"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -56,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20130218070334) do
     t.integer  "currentgroupid",         :default => 0
     t.text     "pastgroupid"
     t.string   "username"
+    t.text     "consentgroup"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

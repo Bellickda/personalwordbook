@@ -1,3 +1,17 @@
+
+<% if @user.consentgroup.present? %>
+  <% count = 0 %>
+  <p>1つのグループにしか所属出来ません。別のグループに入る場合は、現グループを退会してください。</p>
+  <% while count < @consentsize%>
+    <div>
+    	グループ(<%= @consentarray[count].name%>)から紹介依頼が来ています。
+    	<%=link_to '削除', consentdestroy_accounts_path(count)%>
+    </div>
+    <% count += 1%>
+  <% end%>
+  <p>※紹介通知を削除しても相手は分かりません。</p>
+<% end %>
+<div><%= link_to "グループ：#{@group.name}", group_path(@group)%></div>
 <% @accounts.each do |account| %>
 <table class="table table-bordered table-condensed">
 	<td>
@@ -6,13 +20,15 @@
 			<dd><%= account.content%></dd>
 		</dl>
 		<div style="text-align: right"><%= link_to account.url, account.url%></div>
-		a<%= account.groupid%>
 	</td>
 </table>
+<% comments = Comment.where('accounts_id = ?',account.id) %>
+<% comments.each do |comment| %>
+  <%=comment.name%>：<%= comment.comment %><br />
 <% end %>
-a<%= @test%>
-<% @group.each do |account| %>
-<%= account.id%>
-<%= account.name%>
-<%= account.concept%><br>
+<%= form_tag(comments_accounts_path(account.id), method: :get) do %>
+<%= text_field "q", params[:q] %>
+<%= submit_tag "送信", :class => "btn btn-info"%>
 <% end %>
+<% end %>
+

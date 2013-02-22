@@ -1,4 +1,18 @@
 <center>
 <p>グループに所属してません。</p>
+<% if @user.consentgroup.present? %>
+  <% count = 0 %>
+  <% while count < @consentsize%>
+    <div>グループ(<%= @consentarray[count].name%>)から紹介依頼が来ています。
+    	<% if @consentarray[count].members.size >= 5%>
+    	  <%=button_to '承認', consentaccept_accounts_path(count), :method => :get, :disabled => true, :class => "btn"%>
+    	<% else %>
+    	  <%=button_to '承認', consentaccept_accounts_path(count), :method => :get, :class => "btn"%>
+    	<% end %>
+    	<%=link_to '削除', consentdestroy_accounts_path(count)%></div>
+    <% count += 1%>
+  <% end%>
+<% end %>
 <%= link_to 'グループの作成', new_group_path %>
 </center>
+<%= @user.consentgroup%>
