@@ -113,11 +113,13 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        comment = Comment.new
-        comment.accounts_id = @account.id
-        comment.comment = @account.tmp
-        comment.name = user.username
-        comment.save
+        if @account.tmp.present?
+          comment = Comment.new
+          comment.accounts_id = @account.id
+          comment.comment = @account.tmp
+          comment.name = user.username
+          comment.save
+        end
         
         #current_user.twitter.update(@account.content) if params[:twitter] == 'yes'
         #if params[:facebook] == 'yes'
@@ -219,7 +221,7 @@ class AccountsController < ApplicationController
     @account = Account.new
     @account.url = params[:url]
     begin
-      doc = timeout(10){Hpricot(open(@account.url).read)}
+      doc = timeout(30){Hpricot(open(@account.url).read)}
     rescue URI::InvalidURIError
     rescue OpenURI::HTTPError
     rescue SocketError
@@ -230,6 +232,7 @@ class AccountsController < ApplicationController
     @account.title = doc.search('title').first.innerText.strip.toutf8
     description = doc.search('meta[@name=description]').first
     @account.content = description ? description.get_attribute('content').strip.toutf8 : ""
+
   
   end
   
