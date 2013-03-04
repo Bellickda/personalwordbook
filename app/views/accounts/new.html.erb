@@ -4,6 +4,7 @@
 		<%= form_tag :search_accounts, method: :get, :remote => true do %>
 		<span style="font-size: 16px;font: bold;">URL入力：</span><%= text_field_tag("url", '', :style => 'font-size:16px;font: bold;width:450px')%>
 		<%= submit_tag "チェック", :class => "btn btn-small btn-info" %>
+		<span id="progress"></span>
 		<% end %>
 		
 <div id="select">

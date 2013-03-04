@@ -164,6 +164,8 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1.json
   def destroy
     @account = Account.find(params[:id])
+    comments = Comment.where('accounts_id = ?',@account.id)
+    comments.destroy_all
     if @account.user_id != current_user.id
       raise Forbidden
     end
@@ -217,7 +219,7 @@ class AccountsController < ApplicationController
     redirect_to accounts_path
   end
   
-  def search    
+  def search
     @account = Account.new
     @account.url = params[:url]
     begin
