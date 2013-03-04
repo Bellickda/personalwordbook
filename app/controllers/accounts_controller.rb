@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
     if @user.currentgroupid == 0
       render 'index_no_group'
     else
-      @accounts = Account.where('groupid = ?', @user.currentgroupid)
+      @accounts = Account.where('groupid = ?', @user.currentgroupid).order("created_at DESC")
       @group = Group.find_by_id(@user.currentgroupid)
       
       respond_to do |format|
