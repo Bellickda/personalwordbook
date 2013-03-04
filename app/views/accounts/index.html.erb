@@ -16,7 +16,7 @@
 <table class="table table-bordered table-condensed">
 	<td>
 		<dl>
-			<dt><%= link_to account.title, account.url, :style => "font-size: 30px" %>　　<%= account.created_at.strftime("%Y-%m-%d %H:%M")%>　<%= link_to '削除', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small' %></dt>
+			<dt><%= link_to account.title, account.url, :target=>["_blank"], :style => "font-size: 30px" %>　　<%= account.created_at.strftime("%Y-%m-%d %H:%M")%>　<%= link_to '削除', account, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-small' %></dt>
 			<dd><%= account.content%></dd>
 		</dl>
 		<div style="text-align: right"><%= link_to account.url, account.url, :target=>["_blank"]%></div>
